@@ -1,9 +1,8 @@
 services:
   # Switch Core - Simula switch principal do datacenter
   snmp-switch-core:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-switch-core
     hostname: switch-core-01
     restart: unless-stopped
@@ -24,9 +23,8 @@ services:
 
   # Switch Access - Simula switch de acesso
   snmp-switch-access:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-switch-access
     hostname: switch-access-01
     restart: unless-stopped
@@ -49,9 +47,8 @@ services:
 
   # Servidor Web - Simula servidor web/aplicação
   snmp-server-web:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-server-web
     hostname: web-server-01
     restart: unless-stopped
@@ -74,9 +71,8 @@ services:
 
   # Servidor Database - Simula servidor de banco de dados
   snmp-server-db:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-server-db
     hostname: db-server-01
     restart: unless-stopped
@@ -99,9 +95,8 @@ services:
 
   # Firewall - Simula firewall/gateway
   snmp-firewall:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-firewall
     hostname: firewall-01
     restart: unless-stopped
@@ -122,9 +117,8 @@ services:
 
   # Impressora - Simula impressora de rede
   snmp-printer:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-printer
     hostname: printer-01
     restart: unless-stopped
@@ -147,9 +141,8 @@ services:
 
   # UPS - Simula no-break
   snmp-ups:
-    build:
-      context: .
-      dockerfile: Dockerfile.snmpd
+    image: lab-snmp:1.0
+    # build:
     container_name: snmp-ups
     hostname: ups-01
     restart: unless-stopped
