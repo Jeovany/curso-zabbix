@@ -1,0 +1,176 @@
+services:
+  # Switch Core - Simula switch principal do datacenter
+  snmp-switch-core:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-switch-core
+    hostname: switch-core-01
+    restart: unless-stopped
+    ports:
+      - "10161:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - Core Switch
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.10
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Switch Access - Simula switch de acesso
+  snmp-switch-access:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-switch-access
+    hostname: switch-access-01
+    restart: unless-stopped
+    ports:
+      - "10162:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - Access Switch
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.11
+    depends_on:
+      - snmp-switch-core
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Servidor Web - Simula servidor web/aplicação
+  snmp-server-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-server-web
+    hostname: web-server-01
+    restart: unless-stopped
+    ports:
+      - "10163:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - Web Server
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.20
+    depends_on:
+      - snmp-switch-access
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Servidor Database - Simula servidor de banco de dados
+  snmp-server-db:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-server-db
+    hostname: db-server-01
+    restart: unless-stopped
+    ports:
+      - "10164:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - Database Server
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.21
+    depends_on:
+      - snmp-switch-access
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Firewall - Simula firewall/gateway
+  snmp-firewall:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-firewall
+    hostname: firewall-01
+    restart: unless-stopped
+    ports:
+      - "10165:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - Firewall
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.5
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Impressora - Simula impressora de rede
+  snmp-printer:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-printer
+    hostname: printer-01
+    restart: unless-stopped
+    ports:
+      - "10166:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Office - Printer Floor 1
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.30
+    depends_on:
+      - snmp-switch-access
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # UPS - Simula no-break
+  snmp-ups:
+    build:
+      context: .
+      dockerfile: Dockerfile.snmpd
+    container_name: snmp-ups
+    hostname: ups-01
+    restart: unless-stopped
+    ports:
+      - "10167:161/udp"
+    environment:
+      - SNMP_COMMUNITY=public
+      - SNMP_LOCATION=Datacenter - UPS Main
+      - SNMP_CONTACT=admin@lab.com
+    networks:
+      snmp-lab:
+        ipv4_address: 172.25.0.31
+    healthcheck:
+      test: ["CMD", "snmpget", "-v2c", "-c", "public", "localhost", "1.3.6.1.2.1.1.1.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  snmp-lab:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
