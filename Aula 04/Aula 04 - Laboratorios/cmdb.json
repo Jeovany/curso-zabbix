@@ -1,0 +1,62 @@
+[
+  {
+    "hostname": "app-prod-01",
+    "name": "Application Server Production 01",
+    "ip": "10.0.2.10",
+    "env": "production"
+  },
+  {
+    "hostname": "app-prod-02",
+    "name": "Application Server Production 02",
+    "ip": "10.0.2.11",
+    "env": "production"
+  },
+  {
+    "hostname": "app-prod-03",
+    "name": "Application Server Production 03",
+    "ip": "10.0.2.12",
+    "env": "production"
+  },
+  {
+    "hostname": "app-staging-01",
+    "name": "Application Server Staging 01",
+    "ip": "10.0.2.20",
+    "env": "staging"
+  },
+  {
+    "hostname": "app-staging-02",
+    "name": "Application Server Staging 02",
+    "ip": "10.0.2.21",
+    "env": "staging"
+  },
+  {
+    "hostname": "app-dev-01",
+    "name": "Application Server Development 01",
+    "ip": "10.0.2.30",
+    "env": "development"
+  },
+  {
+    "hostname": "api-prod-01",
+    "name": "API Server Production 01",
+    "ip": "10.0.6.10",
+    "env": "production"
+  },
+  {
+    "hostname": "api-prod-02",
+    "name": "API Server Production 02",
+    "ip": "10.0.6.11",
+    "env": "production"
+  },
+  {
+    "hostname": "worker-prod-01",
+    "name": "Worker Server Production 01",
+    "ip": "10.0.7.10",
+    "env": "production"
+  },
+  {
+    "hostname": "worker-prod-02",
+    "name": "Worker Server Production 02",
+    "ip": "10.0.7.11",
+    "env": "production"
+  }
+]
