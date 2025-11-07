@@ -21,7 +21,7 @@ footer: 'Configuração de Alertas e Ações Automatizadas | 4Linux'
 # Agenda do Dia
 
 1. **Fundamentos das Actions**
-   - Anatomia, event sources, condições avançadas
+   - Arquitetura, event sources, condições avançadas
 
 2. **Configuração de Media Types**
    - Telegram, Slack, MS Teams, Webhooks
