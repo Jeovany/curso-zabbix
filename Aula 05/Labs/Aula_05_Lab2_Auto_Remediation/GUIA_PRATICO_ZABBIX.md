@@ -202,7 +202,33 @@ Tags:
 
 ---
 
-### Passo 2.3: Criar Action de Auto-Remediation
+### Passo 2.3: Criar Global Script (IMPORTANTE no Zabbix 7.0!)
+
+**⚠️ MUDANÇA NO ZABBIX 7.0 LTS:** Comandos remotos via Actions agora devem ser criados como Global Scripts primeiro!
+
+**Acesse:** Administration → Scripts → Create script
+
+```
+Name: Auto Restart Service
+Scope: Action operation  ⚠️ CRUCIAL!
+Menu path: (deixar vazio)
+Type: Script
+Execute on: Zabbix agent
+Commands:
+  /usr/lib/zabbix/alertscripts/restart_service.sh {EVENT.TAGS.service}
+
+Description: Automatically restarts service based on event tag
+User groups: (deixar vazio para todos)
+Host groups: (deixar vazio para todos)
+Required host permissions: Read
+Enable confirmation: No (desmarcar)
+```
+
+**Click: Add**
+
+---
+
+### Passo 2.4: Criar Action de Auto-Remediation
 
 **Acesse:** Alerts → Actions → Trigger actions → Create action
 
@@ -259,23 +285,18 @@ Default message:
   Dashboard: {$ZABBIX.URL}/zabbix.php?action=problem.view
 ```
 
-**Operation 2: Executar Comando Remoto**
+**Operation 2: Executar Script Global**
 
 Click em **Add** novamente:
 ```
-Operation type: Remote command
+Operation type: Run script  ⚠️ Opção nova no Zabbix 7.0!
+
+Script: Auto Restart Service  (selecione o script criado no Passo 2.3)
 
 Target list: Current host
-
-Type: Custom script
-
-Execute on: Zabbix agent
-
-Commands:
-  /usr/lib/zabbix/alertscripts/restart_service.sh {EVENT.TAGS.service}
 ```
 
-**⚠️ Atenção:** `{EVENT.TAGS.service}` será substituído por `apache2`, `mysql` ou `ssh` dependendo da trigger!
+**⚠️ Atenção:** `{EVENT.TAGS.service}` no script será substituído por `apache2`, `mysql` ou `ssh` dependendo da trigger!
 
 ---
 
