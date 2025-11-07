@@ -1,0 +1,6 @@
+# Arquivo de configuração sudoers para Zabbix Auto-Remediation
+# Instalação: sudo cp sudoers_zabbix /etc/sudoers.d/zabbix
+# Validação: sudo visudo -c -f /etc/sudoers.d/zabbix
+
+# Permitir usuário zabbix executar script de remediation sem senha
+zabbix ALL=(ALL) NOPASSWD: /usr/lib/zabbix/alertscripts/restart_service.sh
