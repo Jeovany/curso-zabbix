@@ -1547,7 +1547,7 @@ stress --cpu 4 --timeout 300s
 **1. Instalar MySQL:**
 
 ```bash
-sudo apt install mysql-server zabbix-proxy-mysql zabbix-sql-scripts -y
+sudo apt install mariadb-server zabbix-proxy-mysql zabbix-sql-scripts -y
 ```
 
 **2. Criar banco:**
